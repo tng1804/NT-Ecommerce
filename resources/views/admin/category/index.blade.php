@@ -1,7 +1,10 @@
 @extends('admin.admin')
 @section('click_category','active')
+@section('table')
+<link rel="stylesheet" href="{{ asset('assets/css/table.css') }}">
+@endsection
 @section('main')
-    <h1>Danh muc</h1>
+    <h2>QUẢN LÝ DANH MỤC</h2>
     <a href="{{route('category.create')}}" class="btn btn-success">Thêm</a>
     <hr>
     <table class="table">
@@ -33,5 +36,5 @@
 
         </tbody>
     </table>
-        {{$cats->links()}}
+    {{$cats->links()}}
 @endsection

@@ -10,6 +10,9 @@
                 <div class="form-group">
                     <label for="" class="">Tên danh mục</label>
                     <input type="text" class="form-control" value="{{$category->name}}" name="name" id="inputName" placeholder="">
+                    @error('name')
+                        <small>{{ $message }}</small>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="" class="">Trạng thái</label>
@@ -33,6 +36,7 @@
             <div class="form-group row">
                 <div class="offset-sm-2 col-sm-10">
                     <button type="submit" class="btn btn-primary">Sửa</button>
+                    <button type="" class="btn btn-primary"><a class= "btn-primary" href="{{route('category.index')}}">Quay lại</a></button>
                 </div>
             </div>
     </div>

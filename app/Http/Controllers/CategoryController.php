@@ -14,8 +14,6 @@ class CategoryController extends Controller
     {
         $cats = Category::orderBy('id', 'DESC')->paginate(5); // Phân trang
         return view('admin.category.index', compact('cats'));
-
-
     }
 
     /**
@@ -24,7 +22,6 @@ class CategoryController extends Controller
     public function create()
     {
         return view('admin.category.create');
-        
     }
 
     /**
@@ -63,7 +60,7 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         $request->validate([
-            'name'=>'required|unique:categories'
+            'name'=>'required|unique:categories,name,'.$category->id,
         ]);
         $data = $request->all('name', 'status');
         $category->update($data);
@@ -76,6 +73,12 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $category->delete();
-        return redirect()->route('category.index');
+        echo "<script>
+                alert('Xóa dữ liệu thành công');
+                window.location.href = '/admin/category';
+                </script>";
+        //  return redirect()->route('category.index');
+        // 
+        
     }
 }

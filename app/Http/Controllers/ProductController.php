@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::orderBy('id', 'DESC')->paginate(50); // Phaan trang
+        $products = Product::orderBy('id', 'DESC')->paginate(5); // Phaan trang
         return view('admin.product.index', compact('products'));
     }
 
@@ -21,7 +22,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $cats = Category::orderBy('name', 'ASC')->get();
+        // dd($cats);
+        return view('admin.product.create', compact('cats'));
     }
 
     /**
@@ -29,7 +32,10 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = request()->all('name', 'image','quantity', 'price', 'content', 'category_id');
+        // dd($data);
+        Product::create($data);
+        return redirect()->route('product.index');
     }
 
     /**
@@ -45,7 +51,9 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        // $cat = Category::where('id', $product->category_id)->get();
+        $cats = Category::orderBy('name', 'ASC')->get();
+        return view('admin.product.edit', compact('product', 'cats'));
     }
 
     /**
@@ -53,7 +61,9 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $data = request()->all('name', 'image','quantity', 'price', 'content', 'category_id');
+        $product->update($data);
+        return redirect()->route('product.index');
     }
 
     /**
@@ -61,6 +71,10 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+        echo "<script>
+                alert('Xóa dữ liệu thành công');
+                window.location.href = '/admin/product';
+                </script>";
     }
 }

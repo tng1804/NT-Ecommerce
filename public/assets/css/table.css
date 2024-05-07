@@ -1,0 +1,24 @@
+
+
+    /* CSS cho bảng */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* CSS cho các thẻ <td> và <th> trong bảng */
+.table th,
+.table td {
+    text-align: center;
+    padding: 10px; /* Khoảng cách giữa nội dung và viền của ô */
+    /* text-align: left; Căn lề nội dung sang trái */
+    border: 1px solid #ddd; /* Đường viền của ô */
+    word-wrap: break-word; /* Tự động ngắt từ khi nội dung quá dài */
+}
+
+/* CSS cho hình ảnh trong bảng */
+.table .img {
+    width: 100px; /* Hình ảnh sẽ không vượt quá kích thước của ô */
+    /* height: auto; Đảm bảo tỷ lệ khung hình được duy trì */
+}
+

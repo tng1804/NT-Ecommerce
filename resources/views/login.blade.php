@@ -15,7 +15,7 @@
 			<div class="row justify-content-md-center h-100">
 				<div class="card-wrapper">
 					<div class="brand">
-						<img src="{{asset('assets')}}/img/admin.png" alt="logo">
+						<img src="{{asset('assets')}}/img/customer.jpg" alt="logo">
 					</div>
 					<div class="card fat">
 						<div class="card-body">

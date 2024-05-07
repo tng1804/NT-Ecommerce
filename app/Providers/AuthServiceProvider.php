@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
-// use Illuminate\Support\Facades\Gate;
+use App\Models\Cart;
+use App\Models\Comment;
+use App\Models\User;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -21,6 +24,15 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Phân quyền
+        Gate::define('my-comment', Function(User $user, Comment $comm){
+            return $user->id == $comm->user_id;
+        });
+
+
+        // Gate::define('my-cart', Function(User $user, Cart $cart){
+        //     return $user->id == $cart->user_id;
+        // });
+            
     }
 }
