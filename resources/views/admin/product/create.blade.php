@@ -26,6 +26,10 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label for="" class="">Số lượng</label>
+                    <input type="text" class="form-control" name="quantity" id="inputName" placeholder="">
+                </div>
+                <div class="form-group">
                     <label for="" class="">Giá</label>
                     <input type="text" class="form-control" name="price" id="inputName" placeholder="">
                 </div>

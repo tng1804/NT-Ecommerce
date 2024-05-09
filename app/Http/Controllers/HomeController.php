@@ -74,7 +74,7 @@ class HomeController extends Controller
         // dd($data);
         $cats = Category::orderBy('name', 'ASC')->get(); // Có thể bỏ do truyền toàn cục
         // $products = Product::where('name', $data)->get();
-        $products = Product::where('name', 'like', '%'. $data['search'] . '%')->get();
+        $products = Product::where('name', 'like', '%' . $data['search'] . '%')->get();
         return view('index', compact('products', 'cats'));   // Không cần truyền cats
     }
 
@@ -83,17 +83,21 @@ class HomeController extends Controller
         // Vardump dữ liệu của request để kiểm tra
         // var_dump(request()->all('comment'));exit();
         $data = request()->all('quantity', 'price');
-        $total_price = $data['price']*$data['quantity'];
-        $data['price'] = $total_price;
+        // $total_price = $data['price']*$data['quantity'];
+        // $data['price'] = $total_price;
         $data['product_id'] = $proId;
         $data['user_id'] = auth()->id();
         // dd($data);
         if (Cart::create($data)) {
-            return redirect()->back();
+            return redirect()->back()->with('success', 'Thêm vào giỏ hàng thành công!');
+            // window.location.href = '/admin/product';
+
+            // return redirect()->back();
         }
-        return redirect()->back();
+        // return redirect()->back();
     }
-    public function cart(){
+    public function cart()
+    {
         $userId = auth()->id();
         $cart_list_items = Cart::where('user_id', $userId)->get();
         // $product_cart = Cart::where('user_id', $userId)->get();
@@ -101,4 +105,50 @@ class HomeController extends Controller
         return view('cart', compact('cart_list_items'));
     }
 
+
+    public function delete_comment($comm_id)
+    {
+        // dùng thẻ a-> đẩy sang route->dùng phương thức get để lấy là đẩy qua controller để xử lý
+        // dd($comm_id);
+        Comment::where('id', $comm_id)->delete();
+        return redirect()->back();
+    }
+    public function delete_to_cart($cart_id)
+    {
+        // dd($cart);
+
+        Cart::where('id', $cart_id)->delete();
+        return redirect()->back();
+    }
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'quantity' => 'required|integer|min:1',
+        ]);
+
+        $cartItem = Cart::find($id);
+        if (!$cartItem) {
+            return response()->json(['error' => 'Cart item not found'], 404);
+        }
+
+        $cartItem->quantity = $request->quantity;
+        $cartItem->save();
+
+        // Cập nhật tổng giá tiền của toàn bộ giỏ hàng
+        $totalPrice = $this->calculateTotalPrice();
+        // var_dump($totalPrice);
+        // exit();
+        return response()->json(['success' => 'Cart item updated', 'cartItem' => $cartItem, 'totalPrice' => $totalPrice]);
+        // return redirect()->back();
+    }
+
+    private function calculateTotalPrice()
+    {
+        $totalPrice = 0;
+        $cartItems = Cart::all();
+        foreach ($cartItems as $item) {
+            $totalPrice += $item->quantity * $item->price;
+        }
+        return $totalPrice;
+    }
 }

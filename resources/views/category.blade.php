@@ -3,7 +3,7 @@
     <div class="jumbotron">
         <h1 class="display-3">{{$category->name}}</h1>
         <hr class="my-2">
-        <p>More info</p>
+        {{-- <p>More info</p> --}}
     </div>
     <hr>
     <div class="row">

@@ -1,17 +1,27 @@
 @extends('main')
+@section('slidebar')
+@include('includes.slidebar')
+@endsection
 @section('main')
     <div class="row">
+        @if (session('success'))
+            <script>
+                alert("{{ session('success') }}");
+            </script>
+        @endif
         <div class="thumbnail">
-            <form action="{{route('home.postCart', $product->id)}}" method="POST">
+            <h3 style="text-align: center">Thông tin chi tiết sản phẩm</h3>
+            <br>
+            <form action="{{ route('home.postCart', $product->id) }}" method="POST">
                 @csrf
                 <div class="col-md-6">
                     <img src="{{ asset('assets/img/' . $product->image) }}" alt="" style="width:100%">
                 </div>
                 <div class="col-md-6">
                     <div class="caption">
-                        <h3>
+                        <h4>
                             {{ $product->name }}
-                        </h3>
+                        </h4>
                         <p>
                             Kho: {{ $product->quantity }}
                         </p>
@@ -22,10 +32,10 @@
                             NT-Ecommerce
                         </p>
                         <p>
-                            Số lượng: <input type="number" name="quantity" id="quantity" value="0" min="0"
-                                max="100">
-                                {{-- <input type="hidden" name="product_id" value="{{$product->id}}"> --}}
-                                <input type="hidden" name="price" value="{{$product->price}}">
+                            Số lượng: <input type="number" name="quantity" id="quantity" value="0" min="1"
+                                max="{{$product->quantity}}">
+                            {{-- <input type="hidden" name="product_id" value="{{$product->id}}"> --}}
+                            <input type="hidden" name="price" value="{{ $product->price }}">
                         </p>
                         <p>
                             <button class="btn btn-primary btn-sm">Add to cart</button>
@@ -59,16 +69,19 @@
                 <img src="{{ asset('assets/img/logo.jpg') }}" alt="" class="media-object" width="50%">
             </a>
             <div class="media-body">
-                <h4 class="media-heading">
-                    {{ $comm->user->name }}
-
-                </h4>
+                <h5 class="media-heading">
+                    @if (auth()->user()->name == $comm->user->name)
+                        You
+                    @else
+                        {{ $comm->user->name }}
+                    @endif
+                </h5>
                 <p>{{ $comm->content }}</p>
                 <small>{{ $comm->created_at->format('d/m/Y') }}</small>
                 @can('my-comment', $comm)
                     <p class="text-right">
-                        <a href="" class="btn btn-primary btn-sm">Sửa</a>
-                        <a href="" class="btn btn-danger btn-sm">Xóa</a>
+                        {{-- <a href="" class="btn btn-primary btn-sm">Sửa</a> --}}
+                        <a href="{{ route('home.deleteComment', $comm->id) }}" class="btn btn-danger btn-sm">Xóa</a>
 
                     </p>
                 @endcan

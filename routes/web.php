@@ -25,11 +25,19 @@ route::get('/', [HomeController::class, 'index'])->name('home.index');
 route::get('/product/{product}', [HomeController::class, 'product'])->name('home.product');
 route::get('/category/{category}', [HomeController::class, 'category'])->name('home.category');
 route::post('/comment/{product_id}', [HomeController::class, 'post_comment'])->name('home.comment');
+//xóa comment
+route::get('/comment/{comment_id}', [HomeController::class, 'delete_comment'])->name('home.deleteComment');
 route::post('/search', [HomeController::class, 'search_products'])->name('home.search');
+
+
 
 //Begin-cart//
 route::post('/cart/{product_id}', [HomeController::class, 'post_to_cart'])->name('home.postCart');
 route::get('/cart', [HomeController::class, 'cart'])->name('home.cart');
+route::delete('/cart/{cart_id}', [HomeController::class, 'delete_to_cart'])->name('home.deleteCart');
+// Route
+Route::put('/cart/update/{id}', [HomeController::class, 'update'])->name('cart.update');
+
 // route::resources([
 //     'cart' => Cart::class
 // ]);

@@ -71,6 +71,7 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        // dd($product);
         $product->delete();
         echo "<script>
                 alert('Xóa dữ liệu thành công');

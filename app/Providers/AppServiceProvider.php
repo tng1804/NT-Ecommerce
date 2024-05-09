@@ -29,9 +29,10 @@ class AppServiceProvider extends ServiceProvider
             $userId = auth()->id();
             $total_cart_records = Cart::where('user_id', $userId)->count();
             $cart_home = Cart::where('user_id', $userId)->first();
-            $view->with(compact('cats_home',['cart_home','total_cart_records']));
+            // Tạo một đối tượng cart của Cart với giá trị null
+            $item = new Cart();
+            $view->with(compact('cats_home', ['cart_home', 'total_cart_records', 'item']));
         });
-
     }
 }
 Paginator::useBootstrap();
