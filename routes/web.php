@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Models\Cart;
@@ -63,4 +64,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
         'category' => CategoryController::class,
         'product' => ProductController::class,
     ]);
+});
+Route::group(['prefix' => 'order', 'middleware' => 'auth'], function () {
+    route::get('/checkout', [CheckoutController::class, 'checkout'])->name('order.checkout');
+    route::post('/checkout', [CheckoutController::class, 'post_checkout']);
+
 });

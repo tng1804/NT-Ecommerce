@@ -16,7 +16,7 @@
 
 <body>
     @include('includes.header')
-    <div class="container content-body" style="margin-top: 100px; margin-bottom: 100px">
+    <div class="container content-body" style="margin-top: 100px; margin-bottom: 100px;">
         <div class="row">
             @yield('slidebar')
             <div class="col-md-9">

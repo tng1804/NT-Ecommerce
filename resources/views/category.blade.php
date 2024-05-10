@@ -1,4 +1,7 @@
 @extends('main')
+@section('slidebar')
+@include('includes.slidebar')
+@endsection
 @section('main')
     <div class="jumbotron">
         <h1 class="display-3">{{$category->name}}</h1>

@@ -40,7 +40,7 @@
                 aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 
-            <a class="nav-link" href="{{route('home.cart')}}">
+            <a id="icon_cart" class="nav-link" href="{{route('home.cart')}}"style="color: rgba(255, 255, 255, .75);transition: color 0.3s;" onmouseover="this.style.color='rgba(255, 255, 255, 0.5)'" onmouseout="this.style.color='rgba(255, 255, 255, .75)'">
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
                     class="bi bi-cart2" viewBox="0 0 16 16">
                     <path
