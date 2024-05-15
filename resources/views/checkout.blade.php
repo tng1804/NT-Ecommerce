@@ -50,7 +50,7 @@
                                                                 <div class="mb-3">
                                                                     <label class="form-label"
                                                                         for="billing-email-address">Email
-                                                                        Address</label>
+                                                                        </label>
                                                                     <input name="email" type="email"
                                                                         class="form-control" id="billing-email-address"
                                                                         placeholder="Enter email"
@@ -72,7 +72,7 @@
                                                             <label class="form-label"
                                                                 for="billing-address">Address</label>
                                                             <textarea name="address" class="form-control" id="billing-address" rows="3" placeholder="Enter full address"
-                                                                value = "{{ $auth->address }}" required></textarea>
+                                                                required>{{ $auth->address }}</textarea>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-lg-4">

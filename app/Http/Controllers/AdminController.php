@@ -45,13 +45,17 @@ class AdminController extends Controller
     public function check_register()
     {
 
+        // var_dump(request(['name','email','phone','address', 'password']));
+        // exit();
         request()->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
+            'phone' => 'required',
+            'address' => 'required',
             'password' => 'required',
             'confirm_password' => 'required|same:password',
         ]);
-        $data = request()->all('email', 'name');
+        $data = request()->all('email', 'name','phone','address');
         $data['password'] = bcrypt(request('password'));
         // dd($data);
         User::create($data);
@@ -60,5 +64,8 @@ class AdminController extends Controller
                 window.location.href = '/admin/login';
                 </script>";
         // return redirect()->route('admin.login');
+    }
+    public function viewAccount(){
+        
     }
 }

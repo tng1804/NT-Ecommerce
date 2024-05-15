@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckoutController;
@@ -36,6 +37,8 @@ route::post('/search', [HomeController::class, 'search_products'])->name('home.s
 route::post('/cart/{product_id}', [HomeController::class, 'post_to_cart'])->name('home.postCart');
 route::get('/cart', [HomeController::class, 'cart'])->name('home.cart');
 route::delete('/cart/{cart_id}', [HomeController::class, 'delete_to_cart'])->name('home.deleteCart');
+route::get('/cart/delete', [HomeController::class, 'delete_all_cart'])->name('home.deleteCartAll');
+
 // Route
 Route::put('/cart/update/{id}', [HomeController::class, 'update'])->name('cart.update');
 
@@ -56,17 +59,25 @@ route::get('/admin/logout', [AdminController::class, 'logout'])->name('admin.log
 route::post('/admin/login', [AdminController::class, 'check_login']);
 
 route::get('/admin/register', [AdminController::class, 'register'])->name('admin.register');
+
 route::post('/admin/register', [AdminController::class, 'check_register']);
+// route::get('/admin/account', [AdminController::class, 'viewAccount'])->name('admin.viewAccount');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     route::get('/', [AdminController::class, 'index'])->name('admin.index');
     route::resources([
         'category' => CategoryController::class,
-        'product' => ProductController::class,
+        'product' => ProductController::class, 
+        'account' => AccountController::class,
     ]);
 });
 Route::group(['prefix' => 'order', 'middleware' => 'auth'], function () {
     route::get('/checkout', [CheckoutController::class, 'checkout'])->name('order.checkout');
     route::post('/checkout', [CheckoutController::class, 'post_checkout']);
+    route::get('/checkout/succsessfully/{order_id}', [CheckoutController::class, 'order_success'])->name('order.succsessfully');
+    route::get('/detail/{order_id}', [CheckoutController::class, 'order_detail'])->name('order.detail');
+
+
+    
 
 });

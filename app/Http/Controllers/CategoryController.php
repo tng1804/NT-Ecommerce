@@ -12,7 +12,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $cats = Category::orderBy('id', 'DESC')->paginate(5); // Phân trang
+        $cats = Category::orderBy('id', 'ASC')->paginate(5); // Phân trang
         return view('admin.category.index', compact('cats'));
     }
 
@@ -50,6 +50,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
+        // dd($category->id);
         return view('admin.category.edit', compact('category'));
 
     }

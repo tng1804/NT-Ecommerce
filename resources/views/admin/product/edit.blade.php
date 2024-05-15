@@ -3,7 +3,7 @@
 @section('main')
     <h1>Thêm sản phẩm</h1>
     <div class="container">
-        <form action="{{route('product.update', $product->id)}}" method="POST">
+        <form action="{{ route('product.update', $product->id) }}" method="POST">
             @csrf
             @method('PUT')
             <div class="col-md-4">
@@ -20,9 +20,14 @@
                     <div class="custom-file">
                         <input type="file" name="image" class="custom-file-input" id="inputGroupFile01"
                             aria-describedby="inputGroupFileAddon01">
-                        <label class="custom-file-label" for="inputGroupFile01">{{ $product->image }}</label>
+                        <label class="custom-file-label" for="inputGroupFile01" id="fileLabel">{{ $product->image }}</label>
                     </div>
                 </div>
+                {{-- <div class="form-group">
+                    <label for="" class="">Ảnh</label>
+                    <input type="file" class="form-control" name="image" id="imageInput">
+                    <span id="selectedFileName"></span>
+                </div> --}}
                 <div class="form-group">
                     <label for="" class="">Số lượng</label>
                     <input type="text" class="form-control" name="quantity" id="inputName" placeholder=""
@@ -61,5 +66,12 @@
             </div>
     </div>
     </form>
+    <script>
+        document.getElementById("inputGroupFile01").addEventListener("change", function() {
+            var fileName = this.files[0].name;
+            var label = document.getElementById("fileLabel");
+            label.textContent = fileName;
+        });
+    </script>
     </div>
 @endsection

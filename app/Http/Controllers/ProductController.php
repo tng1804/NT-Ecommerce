@@ -13,7 +13,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::orderBy('id', 'DESC')->paginate(5); // Phaan trang
+        $products = Product::orderBy('id', 'ASC')->paginate(5); // Phaan trang
+        // $products->appends(['sort'=>'votes']); // Thêm phần login magination lên url
+
         return view('admin.product.index', compact('products'));
     }
 

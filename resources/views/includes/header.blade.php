@@ -22,11 +22,23 @@
 
             @if (auth()->check())
                 <li class="nav-item">
-                    <a class="nav-link @yield('click_product')" href="#">{{ auth()->user()->name }}</a>
+                    {{-- <a class="nav-link @yield('click_product')" href="#">{{ auth()->user()->name }}</a> --}}
+                    <!-- Example split danger button -->
+                    <div class="dropdown">
+                        <button class="btn nav-link dropdown-toggle" type="button" id="dropdownMenu2"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{ auth()->user()->name }}
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">My account</a>
+                            <a class="dropdown-item" href="#">My orders</a>
+                            <a class="dropdown-item" href="{{ route('home.logout') }}">Logout</a>
+                          </div>
+                    </div>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link @yield('click_product')" href="{{ route('home.logout') }}">Đăng xuất</a>
-                </li>
+                </li> --}}
             @else
                 <li class="nav-item">
                     <a class="nav-link @yield('click_product')" href="{{ route('home.login') }}">Đăng nhập</a>
@@ -40,7 +52,10 @@
                 aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 
-            <a id="icon_cart" class="nav-link" href="{{route('home.cart')}}"style="color: rgba(255, 255, 255, .75);transition: color 0.3s;" onmouseover="this.style.color='rgba(255, 255, 255, 0.5)'" onmouseout="this.style.color='rgba(255, 255, 255, .75)'">
+            <a id="icon_cart" class="nav-link"
+                href="{{ route('home.cart') }}"style="color: rgba(255, 255, 255, .75);transition: color 0.3s;"
+                onmouseover="this.style.color='rgba(255, 255, 255, 0.5)'"
+                onmouseout="this.style.color='rgba(255, 255, 255, .75)'">
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
                     class="bi bi-cart2" viewBox="0 0 16 16">
                     <path

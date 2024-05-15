@@ -120,6 +120,10 @@ class HomeController extends Controller
         Cart::where('id', $cart_id)->delete();
         return redirect()->back();
     }
+    public function delete_all_cart(){
+        Cart::truncate();
+        return redirect()->back();
+    }
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -145,7 +149,8 @@ class HomeController extends Controller
     private function calculateTotalPrice()
     {
         $totalPrice = 0;
-        $cartItems = Cart::all();
+        $userId = auth()->id();
+        $cartItems = Cart::where('user_id', $userId)->get();
         foreach ($cartItems as $item) {
             $totalPrice += $item->quantity * $item->price;
         }

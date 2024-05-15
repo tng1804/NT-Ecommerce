@@ -41,6 +41,24 @@
 										Your email is invalid
 									</div>
 								</div>
+								<div class="form-group">
+									<label for="phone">Phone</label>
+									<input id="phone" type="text" class="form-control" name="phone" required>
+                                    @error('phone') <small>{{$message}}</small>   
+                                    @enderror
+									<div class="invalid-feedback">
+										Your phone is invalid
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="address">Address</label>
+									<input id="address" type="text" class="form-control" name="address" required>
+                                    @error('Address') <small>{{$message}}</small>   
+                                    @enderror
+									<div class="invalid-feedback">
+										Your Address is invalid
+									</div>
+								</div>
 
 								<div class="form-group">
 									<label for="password">Password</label>

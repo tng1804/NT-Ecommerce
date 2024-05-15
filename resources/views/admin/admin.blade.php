@@ -23,6 +23,9 @@
                 </li>
                 {{-- active --}}
                 <li class="nav-item">
+                    <a class="nav-link @yield('click_account')" href="{{ route('account.index') }}">Account</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link @yield('click_category')" href="{{ route('category.index') }}">Category</a>
                 </li>
                 <li class="nav-item">

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->increments('id');
             $table->string('name',100)->unique();
             $table->string('image',100);
+            $table->integer('quantity');
             $table->float('price',10,2);
             $table->text('content');
             $table->unsignedInteger('category_id');

@@ -13,8 +13,8 @@
                         <small>{{ $message }}</small>
                     @enderror
                 </div>
-                <label for="" class="">Ảnh</label>
 
+                <label for="" class="">Ảnh</label>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
@@ -22,7 +22,7 @@
                     <div class="custom-file">
                         <input type="file" name="image" class="custom-file-input" id="inputGroupFile01"
                             aria-describedby="inputGroupFileAddon01">
-                        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                        <label class="custom-file-label" for="inputGroupFile01" id="fileLabel">Choose file</label>
                     </div>
                 </div>
                 <div class="form-group">
@@ -41,8 +41,8 @@
                     <label for="" class="">Id danh mục</label>
                     <select name="category_id" class="custom-select" id="inputGroupSelect01">
                         <option selected>Chọn...</option>
-                        @foreach ($cats as $cat)    
-                            <option value="{{$cat->id}}">{{$cat->name}}</option>
+                        @foreach ($cats as $cat)
+                            <option value="{{ $cat->id }}">{{ $cat->name }}</option>
                         @endforeach
 
                     </select>
@@ -58,5 +58,12 @@
             </div>
     </div>
     </form>
+    <script>
+        document.getElementById("inputGroupFile01").addEventListener("change", function() {
+            var fileName = this.files[0].name;
+            var label = document.getElementById("fileLabel");
+            label.textContent = fileName;
+        });
+    </script>
     </div>
 @endsection
