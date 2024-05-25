@@ -1,11 +1,11 @@
 @extends('admin.admin')
 @section('click_product', 'active')
 @section('main')
-    <h1>Thêm sản phẩm</h1>
     <div class="container">
         <form action="{{ route('product.store') }}" method="POST">
             @csrf
-            <div class="col-md-4">
+            <div class="col-md-6 mx-auto">
+                <h1 style="text-align: center">Thêm sản phẩm</h1>
                 <div class="form-group">
                     <label for="" class="">Tên sản phẩm</label>
                     <input type="text" class="form-control" name="name" id="inputName" placeholder="">
@@ -50,7 +50,7 @@
             </div>
 
             <div class="form-group row">
-                <div class="offset-sm-2 col-sm-10">
+                <div class="offset-sm-7 col-sm-10">
                     <button type="submit" class="btn btn-primary">Thêm</button>
                     <button type="" class="btn btn-primary"><a class= "btn-primary"
                             href="{{ route('product.index') }}">Quay lại</a></button>

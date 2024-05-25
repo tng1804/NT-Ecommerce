@@ -1,12 +1,13 @@
 @extends('admin.admin')
 @section('click_account', 'active')
 @section('main')
-    <h1>Sửa thông tin tài khoản</h1>
     <div class="container">
-        <form action="{{route('account.update', $user->id)}}" method="POST">
+        <form action="{{ route('account.update', $user->id) }}" method="POST">
             @csrf
             @method('PUT')
-            <div class="col-md-4">
+            <div class="col-md-6 mx-auto">
+                <h1>Sửa thông tin tài khoản</h1>
+
                 <div class="form-group">
                     <label for="" class="">Họ tên</label>
                     <input type="text" class="form-control" name="name" id="inputName" placeholder=""
@@ -39,7 +40,7 @@
             </div>
 
             <div class="form-group row">
-                <div class="offset-sm-2 col-sm-10">
+                <div class="offset-sm-7 col-sm-8">
                     <button type="submit" class="btn btn-primary">Sửa</button>
                     <button type="" class="btn btn-primary"><a class= "btn-primary"
                             href="{{ route('account.index') }}">Quay lại</a></button>

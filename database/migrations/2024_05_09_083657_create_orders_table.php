@@ -15,7 +15,7 @@ return new class extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->string('name',100);
-            $table->string('email')->unique();
+            $table->string('email');
             $table->string('phone',100);
             $table->string('address',100);
             $table->tinyInteger('status')->default(0);

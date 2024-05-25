@@ -4,41 +4,58 @@
 @endsection
 @section('main')
     {{-- <div class="row"> --}}
-        @if (session('success'))
-            <script>
-                alert("{{ session('success') }}");
-            </script>
-        @endif
-        <div class="thumbnail">
-            <h3 style="text-align: center">Thông tin chi tiết sản phẩm</h3>
-            <br>
-            <form action="{{ route('home.postCart', $product->id) }}" method="POST">
-                @csrf
-                <div class="row">
-                    <div class="col-md-6 order-md-1">
-                        <img src="{{ asset('assets/img/' . $product->image) }}" alt="" style="width:100%">
-                    </div>
-                    <div class="col-md-6 order-md-2">
-                        <div class="caption">
-                            <h4>{{ $product->name }}</h4>
-                            <p>Kho: {{ $product->quantity }}</p>
-                            <p>Price: {{ $product->price }} đ</p>
-                            <p>NT-Ecommerce</p>
-                            <p>Số lượng: <input type="number" name="quantity" id="quantity" value="1" min="1" max="{{ $product->quantity }}"></p>
-                            <input type="hidden" name="price" value="{{ $product->price }}">
+    @if (session('success'))
+        <script>
+            alert("{{ session('success') }}");
+        </script>
+    @endif
+    <div class="thumbnail">
+        <h3 style="text-align: center">Thông tin chi tiết sản phẩm</h3>
+        <br>
+        <form action="{{ route('home.postCart', $product->id) }}" method="POST">
+            @csrf
+            <div class="row">
+                <div class="col-md-6 order-md-1">
+                    <img src="{{ asset('assets/img/' . $product->image) }}" alt="" style="width:100%">
+                </div>
+                <div class="col-md-6 order-md-2">
+                    <div class="caption">
+                        <h4>{{ $product->name }}</h4>
+                        <p>Kho: {{ $product->quantity }}</p>
+                        <p>Price: {{ $product->price }} đ</p>
+                        <p>NT-Ecommerce</p>
+                        <p>Số lượng: <input type="number" name="quantity" id="quantity" value="1" min="1"
+                                max="{{ $product->quantity }}"></p>
+                        <input type="hidden" name="price" value="{{ $product->price }}">
+                        @if ($product->quantity == 0)
+                            <div class="alert alert-danger" role="alert">
+                                <strong>Đã hết hàng!</strong>
+                            </div>
+                            @if (auth()->check())
+                                <button class="btn btn-primary btn-sm" disabled style="opacity: 0.3;">Add to cart</button>
+                            @else
+                                <div class="alert alert-danger" role="alert">
+                                    <strong>Đăng nhập để mua hàng.</strong> Click vào đây để <a
+                                        href="{{ route('home.login') }}">Đăng nhập</a>
+                                </div>
+                            @endif
+                        @else
                             @if (auth()->check())
                                 <button class="btn btn-primary btn-sm">Add to cart</button>
                             @else
                                 <div class="alert alert-danger" role="alert">
-                                    <strong>Đăng nhập để mua hàng.</strong> Click vào đây để <a href="{{ route('home.login') }}">Đăng nhập</a>
+                                    <strong>Đăng nhập để mua hàng.</strong> Click vào đây để <a
+                                        href="{{ route('home.login') }}">Đăng nhập</a>
                                 </div>
                             @endif
-                        </div>
+                        @endif
+
                     </div>
                 </div>
-                
-            </form>
-        </div>
+            </div>
+
+        </form>
+    </div>
     {{-- </div> --}}
     <hr>
     <h3>Comments</h3>

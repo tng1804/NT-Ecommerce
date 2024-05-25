@@ -12,10 +12,10 @@
                 <a class="nav-link @yield('click_product')" href="{{ route('home.index') }}">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link @yield('click_comment')" href="">About</a>
+                <a class="nav-link @yield('click_comment')" href="{{ route('home.about') }}">About</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link @yield('click_comment')" href="">Contact</a>
+                <a class="nav-link @yield('click_comment')" href="{{route('home.contact')}}">Contact</a>
             </li>
 
 
@@ -31,7 +31,7 @@
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item" href="#">My account</a>
-                            <a class="dropdown-item" href="#">My orders</a>
+                            <a class="dropdown-item" href="{{route('home.myOrder')}}">My orders</a>
                             <a class="dropdown-item" href="{{ route('home.logout') }}">Logout</a>
                           </div>
                     </div>

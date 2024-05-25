@@ -33,8 +33,8 @@
                         <form action="{{route('account.destroy',$account->id)}}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <a href="{{route('account.edit',$account)}}" class="btn btn-sm btn-primary">Edit</a>
-                            <button class="btn btn-sm btn-danger">Delete</button>
+                            <a href="{{route('account.edit',$account)}}" class="btn btn-sm btn-primary" title="Sửa"><i class="fas fa-edit"></i></a>
+                            <button class="btn btn-sm btn-danger" title="Xóa"><i class="fas fa-trash"></i></button>
                         </form>
                     </td>
                 </tr>

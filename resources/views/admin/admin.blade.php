@@ -10,12 +10,12 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
     @yield('table')
 </head>
 
 <body>
-    <nav class="navbar navbar-expand navbar-light bg-light">
+    <nav class="navbar navbar-expand navbar-dark bg-dark">
         <div class="container">
             <ul class="nav navbar-nav">
                 <li class="nav-item">
@@ -30,6 +30,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link @yield('click_product')" href="{{ route('product.index') }}">Product</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link @yield('click_order')" href="{{ route('order.index') }}">Order</a>
                 </li>
                 <li class="nav-item">
                     @yield('nameAdmin')
@@ -49,13 +52,13 @@
             </ul>
         </div>
     </nav>
-    <div class="container">
+    <div class="container" style="margin-top: 20px">
         @yield('main')
     </div>
 
     <!------ Include the above in your HEAD tag ---------->
 
-    
+
 
 
     <!-- Optional JavaScript -->

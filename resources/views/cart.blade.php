@@ -69,66 +69,32 @@
                                     </td>
                                 </form>
                             </tr>
-                            <tr>
-                                <td>
-                                    <h5 style="text-align: center">Clear all</h5>
-                                </td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <form action="{{ route('home.deleteCartAll') }}" method="GET">
-                                    @csrf
-                                    {{-- @method('DELETE') --}}
-                                    <td class="text-center align-middle px-0">
-                                        {{-- <a href="#"
-                                            class="shop-tooltip close float-none text-danger" title
-                                            data-original-title="Remove">×</a> --}}
-                                        <button type="submit" class="shop-tooltip close float-none text-danger">×
-                                        </button>
-                                    </td>
-                                </form>
-                            </tr>
                         @endforeach
-
+                        @if ($cart_list_items->count() > 0)
+                        <tr>
+                            <td>
+                                <h5 style="text-align: center">Clear all</h5>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <form action="{{ route('home.deleteCartAll') }}" method="GET">
+                                @csrf
+                                {{-- @method('DELETE') --}}
+                                <td class="text-center align-middle px-0">
+                                    {{-- <a href="#"
+                                        class="shop-tooltip close float-none text-danger" title
+                                        data-original-title="Remove">×</a> --}}
+                                    <button type="submit" class="shop-tooltip close float-none text-danger">×
+                                    </button>
+                                </td>
+                            </form>
+                        </tr>
+                        @else
+                        {{-- <p>Hãy quay lại và thêm sản phẩm vào giỏ hàng nhé !</p> --}}
+                        @endif
                         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
                         <script>
-                            // function updateCartItem(itemId) {
-                            //     var quantity = document.getElementById('quantity_' + itemId).value;
-
-                            //     // Gửi yêu cầu cập nhật số lượng sản phẩm thông qua Ajax
-                            //     axios.put('/cart/update/' + itemId, {
-                            //             quantity: quantity
-                            //         })
-                            //         .then(function(response) {
-                            //             // Cập nhật giao diện người dùng nếu cần
-                            //             console.log(response.data);
-                            //         })
-                            //         .catch(function(error) {
-                            //             console.error(error);
-                            //         });
-                            // }
-                            // Sử dụng AJAX để gửi yêu cầu cập nhật số lượng sản phẩm
-                            // function updateCartItem(itemId) {
-                            //     var quantity = document.getElementById('quantity_' + itemId).value;
-
-                            //     // Gửi yêu cầu cập nhật số lượng sản phẩm thông qua Ajax
-                            //     axios.put('/cart/update/' + itemId, {
-                            //             quantity: quantity
-                            //         })
-                            //         .then(function(response) {
-                            //             // Cập nhật giao diện người dùng với thông tin mới của mục giỏ hàng đã được cập nhật
-                            //             var updatedCartItem = response.data.cartItem;
-                            //             var subtotalElement = document.getElementById('subtotal_' + itemId);
-                            //             subtotalElement.innerText = updatedCartItem.quantity * updatedCartItem.price + 'đ';
-
-                            //             // Cập nhật tổng giá tiền của toàn bộ giỏ hàng nếu cần
-                            //             var totalPrice = response.data.totalPrice;
-                            //             document.getElementById('total-price').innerText = totalPrice + 'đ';
-                            //         })
-                            //         .catch(function(error) {
-                            //             console.error(error);
-                            //         });
-                            // }
                             // Kiểm tra xem có sản phẩm nào còn trong giỏ hàng không
                             function updateCartItem(itemId) {
                                 var quantity = document.getElementById('quantity_' + itemId).value;

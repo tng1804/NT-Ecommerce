@@ -36,7 +36,10 @@ class ProductController extends Controller
     {
         $data = request()->all('name', 'image','quantity', 'price', 'content', 'category_id');
         // dd($data);
-        Product::create($data);
+        $product = Product::create($data);
+        // Gửi email đến user khi thêm sản phẩm mới
+        $homeCtr = new HomeController();
+        $homeCtr->sendEmailProduct($product['id'], $product['name'], $product['image'], $product['quantity'],$product['price'],$product['content']);
         return redirect()->route('product.index');
     }
 

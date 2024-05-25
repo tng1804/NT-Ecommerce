@@ -27,8 +27,8 @@
                         <form action="{{route('category.destroy', $cat->id)}}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <a href="{{route('category.edit', $cat->id)}}" class="btn btn-sm btn-primary">Edit</a>
-                            <button class="btn btn-sm btn-danger">Delete</button>
+                            <a href="{{route('category.edit', $cat->id)}}" class="btn btn-sm btn-primary" title="Sửa"><i class="fas fa-edit"></i></a>
+                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash" title="Xóa"></i></button>
                         </form>
                     </td>
                 </tr>

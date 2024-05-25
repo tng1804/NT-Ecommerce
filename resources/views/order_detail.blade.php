@@ -20,7 +20,29 @@
                                 <span class="me-3">{{ $order->created_at->format('d/m/Y H:i:s') }}</span>
                                 <span class="me-3">#{{ $order->id }}</span>
                                 <span class="me-3">{{$order->name}}</span>
-                                <span class="badge rounded-pill bg-info">SHIPPING</span>
+                                {{-- <span class="badge rounded-pill bg-info">SHIPPING</span> --}}
+                                @switch($order->status)
+                                @case(0) <span class="badge badge-info badge-pill">Chờ xử lý </span>
+                                @break
+
+                                @case(1) <span class="badge badge-success badge-pill">Đã xác nhận</span>
+                                @break
+
+                                @case(2) <span class="badge badge-success badge-pill">Đang xử lý</span>
+                                @break
+
+                                @case(3) <span class="badge badge-success badge-pill">Đã xuất kho</span>
+                                @break
+
+                                @case(4) <span class="badge badge-success badge-pill">Đang giao hàng</span>
+                                @break
+
+                                @case(5) <span class="badge badge-success badge-pill">Giao hàng thành công</span>
+                                @break
+
+                                @case(6) <span class="badge badge-danger badge-pill">Đã hủy</span>
+                                @default
+                            @endswitch
                             </div>
                             <div class="d-flex">
                                 <button class="btn btn-link p-0 me-3 d-none d-lg-block btn-icon-text"><i
@@ -106,7 +128,7 @@
                             <div class="col-lg-6">
                                 <h3 class="h6">Hình thức thanh toán</h3>
                                 <p>Thanh toán khi nhận hàng<br>
-                                    Tổng thanh toán: {{$subTotal}} đ <span class="badge bg-success rounded-pill">PAID</span></p>
+                                    Tổng thanh toán: {{$subTotal}} đ <span class="badge bg-success rounded-pill">PAY</span></p>
                             </div>
                             <div class="col-lg-6">
                                 <h3 class="h6">Địa chỉ nhận hàng</h3>

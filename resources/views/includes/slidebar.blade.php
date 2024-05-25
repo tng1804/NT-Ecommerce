@@ -10,10 +10,20 @@
             @foreach ($cats_home as $cat)
                 {{-- <li class="list-group-item"> --}}
                 <a
-                    href="{{ route('home.category', $cat->id) }}"class="list-group-item">{{ $cat->name }}</a>
+                    href="{{ route('home.category', $cat->id) }}"class="list-group-item" id="a-category">{{ $cat->name }}</a>
                 {{-- </li> --}}
             @endforeach
             {{-- </ul> --}}
         </div>
     </div>
 </div>
+<style>
+    #a-category{
+        color: black;
+        text-decoration: none;
+        
+    }
+    #a-category:hover{
+    border-color: blue;
+}
+</style>

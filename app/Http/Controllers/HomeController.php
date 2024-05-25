@@ -2,13 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ContactEmail;
+use App\Mail\MessageMail;
 use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Comment;
+use App\Models\Order;
+use App\Models\Order_product;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 class HomeController extends Controller
 {
     public function index()
@@ -155,5 +161,48 @@ class HomeController extends Controller
             $totalPrice += $item->quantity * $item->price;
         }
         return $totalPrice;
+    }
+
+    public function contact(){
+        return view('contact');
+    }
+    public function sendMail(){
+        // $email = 'tranvanngoc180403@gmail.com';
+        // Mail::to($email)->send(new ContactEmail);
+        // return redirect()->route('home.contact')->with('message', 'Đã gửi liên hệ email thành công. 
+        // Vui lòng chờ đợi trong giây lát, chúng tôi sẽ liên hệ với bạn');
+
+        // $data = request(['name', 'email', 'phone', 'content']);
+        // dd($data);
+        $name = request('name');
+        $email = request('email');
+        $phone = request('phone');
+        $content = request('content');
+        // dd($name, $email, $phone, $content);
+        Mail::to($email)->send(new ContactEmail($name, $email, $phone, $content));
+        // return redirect()->route('home.contact')->with('message', 'Đã gửi liên hệ email thành công. 
+        // Vui lòng chờ đợi trong giây lát, chúng tôi sẽ liên hệ với bạn');
+        return view('email.contactSuccess');
+    }
+
+    public function about(){
+        return view('about');
+    }
+    public function myOrder(){
+        $user = auth()->id();
+        // dd($user);
+        $orders = Order::where('user_id',$user)->get();
+        $order_details = Order_product::select(DB::raw('order_id, sum(quantity) as total_quantity, SUM(quantity * price) AS total_price '))->groupBy('order_id')->get();
+        // dd($order_detail);
+        return view('myOrder', compact('orders', 'order_details'));
+    }
+    // Xây dựng function khi thêm sản phẩm sẽ gửi thông báo đến email của user.
+    public function messageProduct(){
+        return view('messageProduct');
+    }
+    public function sendEmailProduct($id, $name,$image, $quantity, $price, $desciption){
+        foreach(User::all() as $user){
+            Mail::to($user->email)->send(new MessageMail($id,$user->name, $name,$image, $quantity, $price, $desciption));
+        }
     }
 }

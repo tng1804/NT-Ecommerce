@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\Order_product;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CheckoutController extends Controller
 {
@@ -33,7 +34,7 @@ class CheckoutController extends Controller
         $auth = auth()->user();
         $req->validate([
             'name' => 'required',
-            'email' => 'required|email',
+            'email' => 'required',
             'phone' => 'required',
             'address' => 'required'
         ], [
@@ -80,8 +81,7 @@ class CheckoutController extends Controller
         $order_products = Order_product::where('order_id', $orderId)->get();
         $subTotal = $this->calculateSubTotalPrice($orderId);
         // dd($order_products);
-        return view('order_detail', compact('order', 'order_products','subTotal'));
-
+        return view('order_detail', compact('order', 'order_products', 'subTotal'));
     }
     private function calculateSubTotalPrice($orderId)
     {
@@ -91,5 +91,61 @@ class CheckoutController extends Controller
             $subTotal += $item->quantity * $item->price;
         }
         return $subTotal;
+    }
+
+    // Hủy đơn hàng
+    public function cancelOrder($order_id)
+    {
+        // dd($order_id);
+        Order::where('id', $order_id)->update(['status' => 6]);
+        return redirect()->back();
+    }
+
+
+    // Bên admin
+    public function index()
+    {
+        $orders = Order::orderBy('id', 'ASC')->paginate(5); // Phân trang
+        // dd($orders);
+        return view('admin.order.index', compact('orders'));
+    }
+    public function edit($order_id)
+    {
+        $order = Order::where('id', $order_id)->first();
+        // dd($order);
+        return view('admin.order.edit', compact('order'));
+    }
+    public function update(Request $request, $order_id)
+    {
+        $data = $request->all(['status']);
+        $order = Order::where('id', $order_id)->update(['status' => $data['status']]);
+        // dd($order);
+        return redirect()->route('order.index');
+    }
+    public function delete($order_id)
+    {
+        // Sử dụng transaction để đảm bảo tính toàn vẹn dữ liệu
+        DB::transaction(function () use ($order_id) {
+            // Xóa order_product trước
+            Order_product::where('order_id', $order_id)->delete();
+
+            // Kiểm tra và xóa đơn hàng
+            $order = Order::find($order_id);
+            if ($order) {
+                $order->delete();
+            }
+        });
+
+        return redirect()->route('order.index');
+    }
+    public function bill($orderId)
+    {
+        // Lấy ra thông tin đơn hàng: tên khách hàng, địa chỉ, ...
+        $order = Order::where('id', $orderId)->first();
+        // Lấy ra thông tin đơn hàng: sản phẩm, tổng tiền, ...
+        $order_products = Order_product::where('order_id', $orderId)->get();
+        $subTotal = $this->calculateSubTotalPrice($orderId);
+        // dd($order_products);
+        return view('admin.order.bill', compact('order', 'order_products', 'subTotal'));
     }
 }
