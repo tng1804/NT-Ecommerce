@@ -1,5 +1,6 @@
 @extends('main')
 {{-- @section('main') --}}
+<link rel="shortcut icon" type="image/png" href="{{ asset('assets/img/NT.png') }}" />
 <link rel="stylesheet" href="{{ asset('assets/css/cart.css') }}">
 <div id="top" style="margin-top: 130px; margin-bottom: 100px"></div>
 <div class="container px-3 my-5 clearfix" style="margin-top: 100px; margin-bottom: 60px">

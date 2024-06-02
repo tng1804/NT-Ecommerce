@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ContactEmail;
+use App\Mail\Forgot_Pass_Email;
 use App\Mail\MessageMail;
 use App\Models\Cart;
 use App\Models\Category;
@@ -14,11 +15,17 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+
 class HomeController extends Controller
 {
     public function index()
     {
+        $user = auth()->user();
+        // if($user->id == 0 || $user->id == null){
+        //     auth()->logout();
+        // }
         $cats = Category::orderBy('name', 'ASC')->get(); // Có thể bỏ do truyền toàn cục
         $products = Product::orderBy('id', 'DESC')->limit(6)->get();
         return view('index', compact('cats', 'products'));
@@ -54,11 +61,99 @@ class HomeController extends Controller
         $data = $request->all('email', 'password');
         // dd($data);
         if (auth()->attempt($data)) {
-            $name = auth()->user()->name; // Lấy tên của người dùng đăng nhập
-            return redirect()->route('home.index', ['name' => $name]);
+            $user = auth()->user(); // Lấy thông tin người dùng đăng nhập
+            if ($user->quyen == 1) { // Kiểm tra quyền của người dùng
+                $name = $user->name; // Lấy tên của người dùng đăng nhập
+                return redirect()->route('home.index', ['name' => $name]);
+            } else {
+                auth()->logout(); // Đăng xuất nếu quyền không hợp lệ
+                return redirect()->route('home.login')->with('error', 'Bạn không phải khách hàng. Không có quyền truy cập.');
+            }
         } else {
-            return redirect()->back();
+            return redirect()->route('home.login')->with('error', 'Thông tin đăng nhập không đúng.');
         }
+    }
+    public function register()
+    {
+        return view('register');
+    }
+    public function check_register()
+    {
+        // validate
+        request()->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'phone' => 'required|unique:users',
+            'address' => 'required',
+            'password' => 'required',
+            'confirm_password' => 'required|same:password',
+        ]);
+        $data = Request()->all('email', 'name', 'phone', 'address');
+        $data['password'] = bcrypt(request('password'));
+        $data['quyen'] = 1;
+        // var_dump($data);
+        // exit();
+        User::create($data);
+        echo "
+            <script>
+                alert('Đăng ký tài khoản thành công');
+                window.location.assign('/login');
+            </script>
+        ";
+    }
+    public function forgotPassword()
+    {
+        return view('forgotPass');
+    }
+    public function sendMailPassWord()
+    {
+        $email = request('email');
+        $user = User::where('email', $email)->first();
+
+        // Kiểm tra xem người dùng có tồn tại hay không
+        if (!$user) {
+            return redirect()->back()->with('error', 'Email không tồn tại trong hệ thống.');
+        }
+        // Tạo một biến ngẫu nhiên (ví dụ: mã khôi phục mật khẩu)
+        $randomPassword = rand(1000, 9999); // Sinh số ngẫu nhiên từ 1000 đến 9999
+        // Bạn có thể lưu mã này vào cơ sở dữ liệu nếu cần thiết
+        $user->password = $randomPassword;
+        $user->save();
+        // dd($user);
+        // exit();
+
+        // dd($name, $email, $phone, $content);
+        Mail::to($email)->send(new Forgot_Pass_Email($user->name, $user->email, $randomPassword));
+        // Trả về view hoặc redirect sau khi gửi email thành công
+        // Lưu thông báo vào session
+        session()->flash('message', 'Đã gửi email khôi phục mật khẩu thành công.');
+
+        // Trả về view hoặc redirect sau khi gửi email thành công
+        return redirect()->route('home.forgotPassword');
+    }
+
+    public function showChangePasswordForm($id)
+    {
+        $user = User::find($id);
+        return view('changePassword', compact('user'));
+    }
+    public function changePassword(Request $request, $id)
+    {
+        // Xác thực
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required|min:1',
+            'confirm_password' => 'required|same:new_password',
+        ]);        
+        $user = User::where('id', $id)->first();
+        // Kiểm tra mật khẩu cũ có khớp với mk hiện tại
+        if (Hash::check($request->old_password, $user->password)) {
+            // Thay đổi mk
+            $user->password = Hash::make($request->new_password);
+            $user->save();
+            return redirect()->route('home.changePassword',$user->id)->with('success', 'Mật khẩu đã được thay đổi thành công.');
+        }
+        return back()->withErrors(['old_password' => 'Mật khẩu hiện tại không đúng.'])->withInput();
     }
 
     public function post_comment($proId)
@@ -126,7 +221,8 @@ class HomeController extends Controller
         Cart::where('id', $cart_id)->delete();
         return redirect()->back();
     }
-    public function delete_all_cart(){
+    public function delete_all_cart()
+    {
         Cart::truncate();
         return redirect()->back();
     }
@@ -163,10 +259,12 @@ class HomeController extends Controller
         return $totalPrice;
     }
 
-    public function contact(){
+    public function contact()
+    {
         return view('contact');
     }
-    public function sendMail(){
+    public function sendMail()
+    {
         // $email = 'tranvanngoc180403@gmail.com';
         // Mail::to($email)->send(new ContactEmail);
         // return redirect()->route('home.contact')->with('message', 'Đã gửi liên hệ email thành công. 
@@ -185,24 +283,28 @@ class HomeController extends Controller
         return view('email.contactSuccess');
     }
 
-    public function about(){
+    public function about()
+    {
         return view('about');
     }
-    public function myOrder(){
+    public function myOrder()
+    {
         $user = auth()->id();
         // dd($user);
-        $orders = Order::where('user_id',$user)->get();
+        $orders = Order::where('user_id', $user)->get();
         $order_details = Order_product::select(DB::raw('order_id, sum(quantity) as total_quantity, SUM(quantity * price) AS total_price '))->groupBy('order_id')->get();
         // dd($order_detail);
         return view('myOrder', compact('orders', 'order_details'));
     }
     // Xây dựng function khi thêm sản phẩm sẽ gửi thông báo đến email của user.
-    public function messageProduct(){
+    public function messageProduct()
+    {
         return view('messageProduct');
     }
-    public function sendEmailProduct($id, $name,$image, $quantity, $price, $desciption){
-        foreach(User::all() as $user){
-            Mail::to($user->email)->send(new MessageMail($id,$user->name, $name,$image, $quantity, $price, $desciption));
+    public function sendEmailProduct($id, $name, $image, $quantity, $price, $desciption)
+    {
+        foreach (User::all() as $user) {
+            Mail::to($user->email)->send(new MessageMail($id, $user->name, $name, $image, $quantity, $price, $desciption));
         }
     }
 }

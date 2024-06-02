@@ -14,7 +14,7 @@
 			<div class="row justify-content-md-center h-100">
 				<div class="card-wrapper">
 					<div class="brand">
-						<img src="{{asset('assets')}}/img/logo.jpg" alt="bootstrap 4 login page">
+						<img class="img_logo" src="{{asset('assets')}}/img/customer.jpg" alt="bootstrap 4 login page">
 					</div>
 					<div class="card fat">
 						<div class="card-body">
@@ -39,6 +39,24 @@
                                     @enderror
 									<div class="invalid-feedback">
 										Your email is invalid
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="phone">Phone</label>
+									<input id="phone" type="text" class="form-control" name="phone" required>
+                                    @error('phone') <small>{{$message}}</small>   
+                                    @enderror
+									<div class="invalid-feedback">
+										Your phone is invalid
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="address">Address</label>
+									<input id="address" type="text" class="form-control" name="address" required>
+                                    @error('Address') <small>{{$message}}</small>   
+                                    @enderror
+									<div class="invalid-feedback">
+										Your Address is invalid
 									</div>
 								</div>
 
@@ -77,13 +95,13 @@
 									</button>
 								</div>
 								<div class="mt-4 text-center">
-									Already have an account? <a href="{{route('admin.login')}}">Login</a>
+									Already have an account? <a href="{{route('home.login')}}">Login</a>
 								</div>
 							</form>
 						</div>
 					</div>
 					<div class="footer">
-						Copyright &copy; 2024 &mdash; Your Company 
+						Copyright &copy; 2024 &mdash; NT-Ecommerce 
 					</div>
 				</div>
 			</div>

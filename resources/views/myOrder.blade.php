@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="{{ asset('assets/css/myOrder.css') }}">
 <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-
+<link rel="shortcut icon" type="image/png" href="{{ asset('assets/img/NT.png') }}" />
 <div id="top" style="margin-top: 90px; margin-bottom: 70px"></div>
 <div class="container bootdey">
     <div class="card  panel-order">

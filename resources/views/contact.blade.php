@@ -1,8 +1,7 @@
 @extends('main')
-<title>Contact with Map Template | PrepBootstrap</title>
 {{-- <link rel="stylesheet" type="text/css" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}" /> --}}
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/font-awesome/css/font-awesome.min.css') }}" />
-
+<link rel="shortcut icon" type="image/png" href="{{ asset('assets/img/NT.png') }}" />
 <script type="text/javascript" src="{{ asset('assets/js/jquery-1.10.2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
 <div id="top" style="margin-top: 100px; margin-bottom: 90px"></div>

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\APIUserControllerToView;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\HomeController;
@@ -49,9 +50,28 @@ route::get('/cart/delete', [HomeController::class, 'delete_all_cart'])->name('ho
 Route::put('/cart/update/{id}', [HomeController::class, 'update'])->name('cart.update');
 
 // Login
-route::get('/login', [HomeController::class, 'login'])->name('home.login');
 route::get('/logout', [HomeController::class, 'logout'])->name('home.logout');
+route::get('/login', [HomeController::class, 'login'])->name('home.login');
 route::post('/login', [HomeController::class, 'check_login']);
+route::get('/register', [HomeController::class, 'register'])->name('home.register');
+route::post('/register', [HomeController::class, 'check_register']);
+
+route::get('/forgotPassword', [HomeController::class, 'forgotPassword'])->name('home.forgotPassword');
+route::post('/forgotPassword', [HomeController::class, 'sendMailPassWord']);
+
+// Đổi mật khẩu
+route::get('/changePassword/{id}', [HomeController::class, 'showChangePasswordForm'])->name('home.showChangePasswordForm');
+route::PUT('/changePassword/{id}', [HomeController::class, 'changePassword'])->name('home.changePassword');
+
+
+// Lấy dữ liệu từ API đổ về view
+route::get('/admin/user', [APIUserControllerToView::class, 'fetchData'])->name('admin.getUser');
+
+
+
+
+
+
 
 
 // Route::group(['prefix' => ''], function () {
@@ -65,6 +85,8 @@ route::get('/admin/register', [AdminController::class, 'register'])->name('admin
 
 route::post('/admin/register', [AdminController::class, 'check_register']);
 // route::get('/admin/account', [AdminController::class, 'viewAccount'])->name('admin.viewAccount');
+route::get('/admin/forgotPassword', [AdminController::class, 'forgotPassword'])->name('admin.forgotPassword');
+route::post('/admin/forgotPassword', [AdminController::class, 'sendMailPassWord']);
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     route::get('/', [AdminController::class, 'index'])->name('admin.index');

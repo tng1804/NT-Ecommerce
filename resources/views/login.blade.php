@@ -7,15 +7,20 @@
 	<title>My Login Page</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="{{asset('assets')}}/css/my-login.css">
+    <link rel="shortcut icon" type="image/png" href="{{ asset('assets/img/NT.png') }}" />
 </head>
-
+@if (session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
 <body class="my-login-page">
 	<section class="h-100">
 		<div class="container h-100">
 			<div class="row justify-content-md-center h-100">
 				<div class="card-wrapper">
 					<div class="brand">
-						<img src="{{asset('assets')}}/img/customer.jpg" alt="logo">
+						<img class="img_logo" src="{{asset('assets')}}/img/customer.jpg" alt="logo">
 					</div>
 					<div class="card fat">
 						<div class="card-body">
@@ -35,7 +40,7 @@
 
 								<div class="form-group">
 									<label for="password">Password
-										<a href="forgot.html" class="float-right">
+										<a href="{{ route('home.forgotPassword') }}" class="float-right">
 											Forgot Password?
 										</a>
 									</label>
@@ -60,7 +65,7 @@
 									</button>
 								</div>
 								<div class="mt-4 text-center">
-									Don't have an account? <a href="{{route('admin.register')}}">Create One</a>
+									Don't have an account? <a href="{{route('home.register')}}">Create One</a>
 								</div>
 							</form>
 						</div>

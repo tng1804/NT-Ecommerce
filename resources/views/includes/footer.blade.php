@@ -17,7 +17,7 @@
                 <h5>Contacts</h5>
                 <dl class="contact-list">
                     <dt>Address:</dt>
-                    <dd>111 Triều Khúc, Thanh Xuân, Hà Nội</dd>
+                    <dd>54 Triều Khúc, Thanh Xuân, Hà Nội</dd>
                 </dl>
                 <dl class="contact-list">
                     <dt>email:</dt>

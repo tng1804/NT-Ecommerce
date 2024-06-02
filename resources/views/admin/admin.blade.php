@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+    <link rel="shortcut icon" type="image/png" href="{{ asset('assets/img/NT.png') }}" />
     @yield('table')
 </head>
 
@@ -23,7 +24,9 @@
                 </li>
                 {{-- active --}}
                 <li class="nav-item">
-                    <a class="nav-link @yield('click_account')" href="{{ route('account.index') }}">Account</a>
+                    {{-- <a class="nav-link @yield('click_account')" href="{{ route('account.index') }}">Account</a> --}}
+                    <a class="nav-link @yield('click_account')" href="{{ route('admin.getUser') }}">Account</a>
+                    
                 </li>
                 <li class="nav-item">
                     <a class="nav-link @yield('click_category')" href="{{ route('category.index') }}">Category</a>

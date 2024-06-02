@@ -1,6 +1,7 @@
 @extends('main')
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="shortcut icon" type="image/png" href="{{ asset('assets/img/NT.png') }}" />
 <link rel="stylesheet" href="{{ asset('assets/css/order_detail.css') }}">
 <div id="top" style="margin-top: 90px; margin-bottom: 70px"></div>
 <div class="container-fluid">

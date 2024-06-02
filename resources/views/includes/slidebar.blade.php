@@ -21,9 +21,13 @@
     #a-category{
         color: black;
         text-decoration: none;
+        /* border:  */
+        margin: 0.1px;
         
     }
     #a-category:hover{
     border-color: blue;
+
+
 }
 </style>

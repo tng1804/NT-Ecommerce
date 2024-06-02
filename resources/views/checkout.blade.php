@@ -11,6 +11,7 @@
         integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc=" crossorigin="anonymous" />
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/css/checkout.css') }}">
+    <link rel="shortcut icon" type="image/png" href="{{ asset('assets/img/NT.png') }}" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <div id="top" style="margin-top: 130px; margin-bottom: 100px"></div>
     <div class="container2" style="margin: 0px 100px">
@@ -75,7 +76,7 @@
                                                                 required>{{ $auth->address }}</textarea>
                                                         </div>
                                                         <div class="row">
-                                                            <div class="col-lg-4">
+                                                            {{-- <div class="col-lg-4">
                                                                 <div class="mb-4 mb-lg-0">
                                                                     <label class="form-label">Country</label>
                                                                     <select class="form-control form-select"
@@ -90,16 +91,16 @@
                                                                         <option value="AI">Anguilla</option>
                                                                     </select>
                                                                 </div>
-                                                            </div>
-                                                            <div class="col-lg-4">
+                                                            </div> --}}
+                                                            {{-- <div class="col-lg-4">
                                                                 <div class="mb-4 mb-lg-0">
                                                                     <label class="form-label"
                                                                         for="billing-city">City</label>
                                                                     <input type="text" class="form-control"
                                                                         id="billing-city" placeholder="Enter City">
                                                                 </div>
-                                                            </div>
-                                                            <div class="col-lg-4">
+                                                            </div> --}}
+                                                            {{-- <div class="col-lg-4">
                                                                 <div class="mb-0">
                                                                     <label class="form-label" for="zip-code">Zip /
                                                                         Postal
@@ -107,7 +108,7 @@
                                                                     <input type="text" class="form-control"
                                                                         id="zip-code" placeholder="Enter Postal code">
                                                                 </div>
-                                                            </div>
+                                                            </div> --}}
                                                         </div>
                                                     </div>
                                                 </form>
@@ -194,12 +195,12 @@
                                             </p>
                                         </div>
                                         <div>
-                                            <h5 class="font-size-14 mb-3">Payment method :</h5>
+                                            <h5 class="font-size-14 mb-3">Payment method : <small>Hiện tại chỉ hỗ trợ thanh toán khi nhận hàng</small></h5>
                                             <div class="row">
                                                 <div class="col-lg-3 col-sm-6">
                                                     <div data-bs-toggle="collapse">
                                                         <label class="card-radio-label">
-                                                            <input type="radio" name="pay-method"
+                                                            <input disabled style="opacity: 0.3;" type="radio" name="pay-method"
                                                                 id="pay-methodoption1" class="card-radio-input">
                                                             <span class="card-radio py-3 text-center text-truncate">
                                                                 <i class="bx bx-credit-card d-block h2 mb-3"></i>
@@ -211,7 +212,7 @@
                                                 <div class="col-lg-3 col-sm-6">
                                                     <div>
                                                         <label class="card-radio-label">
-                                                            <input type="radio" name="pay-method"
+                                                            <input disabled style="opacity: 0.3;" type="radio" name="pay-method"
                                                                 id="pay-methodoption2" class="card-radio-input">
                                                             <span class="card-radio py-3 text-center text-truncate">
                                                                 <i class="bx bxl-paypal d-block h2 mb-3"></i>

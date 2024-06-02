@@ -1,5 +1,6 @@
 @extends('main')
 <!-- Google font -->
+<link rel="shortcut icon" type="image/png" href="{{ asset('assets/img/NT.png') }}" />
 <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet" />
 {{-- <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"> --}}
 <script src="https://kit.fontawesome.com/25801ad5d5.js" crossorigin="anonymous"></script>

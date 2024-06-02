@@ -30,8 +30,9 @@
                             {{ auth()->user()->name }}
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">My account</a>
+                            {{-- <a class="dropdown-item" href="#">My account</a> --}}
                             <a class="dropdown-item" href="{{route('home.myOrder')}}">My orders</a>
+                            <a class="dropdown-item" href="{{route('home.showChangePasswordForm',auth()->user()->id)}}">Đổi mật khẩu</a>
                             <a class="dropdown-item" href="{{ route('home.logout') }}">Logout</a>
                           </div>
                     </div>
